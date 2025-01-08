@@ -1,282 +1,230 @@
 import React, { useState } from 'react';
 
-const cards = [
-  {
-    title: 'Ancient Dragon',
-    class: 'Monster',
-    description: 'A mighty wyrm of incredible power and ancient knowledge.',
-    image: '/api/placeholder/300/400'
-  },
-  {
-    title: 'Mystic Wizard',
-    class: 'Spellcaster',
-    description: 'Master of arcane arts and keeper of forbidden spells.',
-    image: '/api/placeholder/300/400'
-  },
-  {
-    title: 'Noble Paladin',
-    class: 'Holy Warrior',
-    description: 'A righteous warrior blessed with divine power.',
-    image: '/api/placeholder/300/400'
-  },
-  {
-    title: 'Deadly Rogue',
-    class: 'Assassin',
-    description: 'Silent killer moving through shadows unseen.',
-    image: '/api/placeholder/300/400'
-  },
-  {
-    title: 'Nature Druid',
-    class: 'Shapeshifter',
-    description: 'Guardian of the wild places and nature\'s fury incarnate.',
-    image: '/api/placeholder/300/400'
-  }
-];
+const DnDCardGrid = () => {
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const Card = ({ title, class: characterClass, description, image, index, activeIndex, totalCards }) => {
-  const isActive = index === activeIndex;
-  const diff = (index - activeIndex + totalCards) % totalCards;
-  
-  // Calculate positions for helix-like movement
-  const getTransform = () => {
-    if (isActive) {
-      return `
-        translate3d(0, 0, 200px) 
-        rotateX(0deg) 
-        scale(1.1)
-      `;
-    }
-    
-    const angle = (diff / totalCards) * Math.PI * 2;
-    const radius = 400;
-    const x = Math.sin(angle) * radius;
-    const y = Math.cos(angle) * 50; // Add vertical offset for helix effect
-    const z = (Math.cos(angle) * radius - radius) / 2;
-    
-    return `
-      translate3d(${x}px, ${y}px, ${z}px) 
-      rotateY(${-angle * (180 / Math.PI)}deg)
-      rotateX(${y / 2}deg)
-      scale(0.8)
-    `;
-  };
-
-  return (
-    <div
-      className={`absolute left-0 top-0 w-64 h-96 transition-all duration-1000 ease-out
-                ${isActive ? 'z-30' : 'z-20'}`}
-      style={{
-        transform: getTransform(),
-        transformStyle: 'preserve-3d',
-      }}
-    >
-      <div className="relative w-full h-full group perspective">
-        {/* Card Base with Prismatic Effect */}
-        <div 
-          className="absolute inset-0 bg-slate-900 rounded-lg shadow-xl 
-                   transform transition-all duration-700"
-        >
-          {/* Prismatic Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 via-purple-500/20 to-blue-500/20 
-                       rounded-lg backdrop-blur-sm opacity-75
-                       animate-gradient-shift"/>
-          
-          {/* Magic Runes */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(20)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-2 h-2 bg-blue-400/30 rounded-full
-                         animate-floating-rune"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  animationDuration: `${5 + Math.random() * 5}s`
-                }}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Card Content with Flip Effect */}
-        <div className="relative h-full p-4 flex flex-col transform-gpu transition-transform duration-1000
-                      group-hover:rotate-y-180 preserve-3d">
-          {/* Front Face */}
-          <div className="absolute inset-0 p-4 backface-hidden">
-            <div className="relative h-48 overflow-hidden rounded-t-lg mb-4">
-              <img
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover transform transition-transform duration-700
-                         group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"/>
-            </div>
-            
-            <h3 className="text-xl font-medieval text-purple-300 mb-2">
-              {title}
-            </h3>
-            
-            <div className="text-sm font-bold text-blue-300">
-              {characterClass}
-            </div>
-          </div>
-
-          {/* Back Face */}
-          <div className="absolute inset-0 p-4 backface-hidden rotate-y-180
-                       bg-gradient-to-br from-purple-900/90 to-blue-900/90 rounded-lg">
-            <div className="h-full flex flex-col justify-center items-center text-center">
-              <p className="text-gray-200 mb-4">
-                {description}
-              </p>
-              <div className="w-16 h-16 border-4 border-purple-400 rounded-full
-                           animate-pulse"/>
-            </div>
-          </div>
-        </div>
-
-        {/* Energy Effects */}
-        <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 
-                     transition-opacity duration-500">
-          {/* Pulsing Border */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 
-                       rounded-lg opacity-0 group-hover:opacity-70 blur-sm
-                       animate-border-pulse"/>
-          
-          {/* Corner Sparks */}
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-4 h-4 bg-blue-400 rounded-full blur-sm
-                       animate-spark"
-              style={{
-                top: i < 2 ? '-0.5rem' : 'auto',
-                bottom: i >= 2 ? '-0.5rem' : 'auto',
-                left: i % 2 === 0 ? '-0.5rem' : 'auto',
-                right: i % 2 === 1 ? '-0.5rem' : 'auto',
-                animationDelay: `${i * 0.2}s`
-              }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+  // Custom icon components to replace Lucide icons
+  const IconBook = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+    </svg>
   );
-};
 
-const DnDCarousel = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const totalCards = cards.length;
+  const IconSword = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path>
+      <path d="M13 19l6-6"></path>
+      <path d="M16 16l4 4"></path>
+      <path d="M19 21l2-2"></path>
+    </svg>
+  );
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % totalCards);
-  };
+  const IconCrown = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path>
+    </svg>
+  );
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + totalCards) % totalCards);
+  const IconShield = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+  );
+
+  const IconStar = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </svg>
+  );
+
+  const IconScroll = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+    </svg>
+  );
+
+  const IconHeart = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+    </svg>
+  );
+
+  const IconMoon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  );
+
+  const IconFlame = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+    </svg>
+  );
+
+  const IconSkull = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="12" r="1"></circle>
+      <circle cx="15" cy="12" r="1"></circle>
+      <path d="M8 20v2h8v-2"></path>
+      <path d="M12.5 17l-.5-1-.5 1h1z"></path>
+      <path d="M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"></path>
+    </svg>
+  );
+
+  const cardData = [
+    {
+      id: 1,
+      title: "Ancient Dragon's Grimoire",
+      icon: <IconBook />,
+      description: "A mystical tome containing powerful dragon magic",
+      details: "This ancient book, bound in dragon scales, contains forgotten spells and rituals from the age of the great wyrms. Its pages shimmer with an otherworldly glow, and those who study it claim to hear distant dragon roars."
+    },
+    {
+      id: 2,
+      title: "Blade of Shadow",
+      icon: <IconSword />,
+      description: "A legendary sword that drinks darkness",
+      details: "Forged in the depths of the Shadowfell, this blade seems to absorb light around it. Its wielder gains supernatural stealth abilities, but at what cost to their soul?"
+    },
+    {
+      id: 3,
+      title: "Crown of Winter",
+      icon: <IconCrown />,
+      description: "Relic of the Frost Giant Kings",
+      details: "This crown, crafted from eternal ice, grants its wearer command over winter itself. It was worn by the greatest of the Frost Giant kings during the Age of Winter's Reign."
+    },
+    {
+      id: 4,
+      title: "Aegis of the Faithful",
+      icon: <IconShield />,
+      description: "Holy shield of divine protection",
+      details: "Blessed by the gods themselves, this shield radiates divine protection. Its surface bears constantly shifting holy symbols of all good-aligned deities."
+    },
+    {
+      id: 5,
+      title: "Star of Power",
+      icon: <IconStar />,
+      description: "Controls the fundamental forces",
+      details: "A crystalline star that channels the raw power of the cosmos. Each point glows with different magical energies, representing the fundamental forces of the universe."
+    },
+    {
+      id: 6,
+      title: "Scroll of Time",
+      icon: <IconScroll />,
+      description: "Contains temporal magic",
+      details: "This paradoxical scroll exists in multiple timestreams simultaneously. Reading it grants visions of possible futures, but each reading ages the reader slightly."
+    },
+    {
+      id: 7,
+      title: "Phoenix Heart",
+      icon: <IconHeart />,
+      description: "Eternal flame of rebirth",
+      details: "The crystallized heart of an ancient phoenix, still burning with immortal flame. It pulses with healing energy and can restore life to the recently deceased once per century."
+    },
+    {
+      id: 8,
+      title: "Moon Blessed Crystal",
+      icon: <IconMoon />,
+      description: "The ultimate lunar catalyst",
+      details: "A crystal blessed by the moon goddess herself, capable of harnessing lunar energy for powerful magic. It grows stronger as the moon waxes and can control the tides of magic."
+    },
+    {
+      id: 9,
+      title: "Infernal Flame",
+      icon: <IconFlame />,
+      description: "Shapes the wielder's destiny",
+      details: "A captured flame from the Nine Hells, this eternally burning ember grants its wielder control over hellfire but comes with a terrible price for the soul."
+    },
+    {
+      id: 10,
+      title: "Necromancer's Skull",
+      icon: <IconSkull />,
+      description: "Ancient repository of dark magic",
+      details: "A crystal skull imbued with the knowledge of a long-dead arch-necromancer. It whispers forbidden secrets to those who dare to listen."
+    }
+  ];
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setIsModalOpen(true);
   };
 
   return (
-    <div className="w-full h-screen bg-gray-900 flex items-center justify-center overflow-hidden">
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes floating-rune {
-          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-          50% { transform: translate(10px, -10px) scale(1.5); opacity: 0.6; }
-        }
-        
-        @keyframes border-pulse {
-          0%, 100% { opacity: 0.4; transform: scale(1); }
-          50% { opacity: 0.6; transform: scale(1.02); }
-        }
-        
-        @keyframes spark {
-          0%, 100% { transform: scale(0.8); opacity: 0.3; }
-          50% { transform: scale(1.2); opacity: 0.7; }
-        }
+    <div className="min-h-screen bg-gray-900 p-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        {cardData.map((card, index) => (
+          <div
+            key={card.id}
+            className="group relative transform transition-all duration-500 hover:scale-105 opacity-0 animate-fade-in"
+            style={{
+              animationDelay: `${index * 150}ms`,
+              animation: 'fadeIn 0.5s ease-out forwards'
+            }}
+          >
+            <div className="bg-gray-800 rounded-lg p-6 h-full border-2 border-amber-600/30 hover:border-amber-500 transition-all duration-300 shadow-lg hover:shadow-amber-500/20">
+              <div className="flex flex-col items-center space-y-4">
+                <div className="text-amber-500 transition-transform duration-300 group-hover:scale-110">
+                  {card.icon}
+                </div>
+                <h3 className="text-xl font-bold text-amber-500 text-center">{card.title}</h3>
+                <p className="text-gray-400 text-center">{card.description}</p>
+                <button
+                  onClick={() => handleCardClick(card)}
+                  className="mt-4 px-4 py-2 bg-amber-600 text-white rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-amber-500"
+                >
+                  View More
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
+      {/* Custom Modal */}
+      {isModalOpen && selectedCard && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setIsModalOpen(false)}
+          />
+          
+          <div className="relative bg-gray-800 text-white border-2 border-amber-600 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-xl transform transition-all">
+            <div className="flex items-center justify-between p-6 border-b border-amber-600/30">
+              <div className="flex items-center gap-4">
+                <span className="text-amber-500">{selectedCard.icon}</span>
+                <h2 className="text-2xl text-amber-500 font-bold">{selectedCard.title}</h2>
+              </div>
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <p className="text-gray-300 leading-relaxed">{selectedCard.details}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
-        .preserve-3d {
-          transform-style: preserve-3d;
-        }
-
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-
-        .perspective {
-          perspective: 1000px;
-        }
-
-        .animate-gradient-shift {
-          animation: gradient-shift 8s linear infinite;
-          background-size: 200% 200%;
-        }
-
-        .animate-floating-rune {
-          animation: floating-rune 4s ease-in-out infinite;
-        }
-
-        .animate-border-pulse {
-          animation: border-pulse 2s ease-in-out infinite;
-        }
-
-        .animate-spark {
-          animation: spark 1.5s ease-in-out infinite;
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
-      
-      <div className="relative w-full max-w-4xl h-[500px] flex items-center justify-center"
-           style={{ perspective: '2000px' }}>
-        {/* Navigation Buttons */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-4 z-50 px-6 py-3 
-                   bg-gradient-to-r from-purple-600 to-blue-600
-                   rounded-lg text-white font-bold
-                   transform transition-all duration-300
-                   hover:scale-110 hover:brightness-110
-                   active:scale-95"
-        >
-          ← Previous
-        </button>
-        
-        <button
-          onClick={handleNext}
-          className="absolute right-4 z-50 px-6 py-3
-                   bg-gradient-to-r from-blue-600 to-purple-600
-                   rounded-lg text-white font-bold
-                   transform transition-all duration-300
-                   hover:scale-110 hover:brightness-110
-                   active:scale-95"
-        >
-          Next →
-        </button>
-
-        {/* Cards Container */}
-        <div className="relative w-64 h-96" style={{ transformStyle: 'preserve-3d' }}>
-          {cards.map((card, index) => (
-            <Card
-              key={card.title}
-              {...card}
-              index={index}
-              activeIndex={activeIndex}
-              totalCards={totalCards}
-            />
-          ))}
-        </div>
-      </div>
     </div>
   );
 };
 
-export default DnDCarousel;
+export default DnDCardGrid;
