@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Event from "../components/events/Event"; // Ensure the path is correct
+import Sign from "../components/signup/Sign";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ const Home = () => {
       {/* Event Component */}
       <div className="mt-5">
         <Event />
+      </div>
+      <div className="mt-10">
+        <Sign />
       </div>
     </div>
   );
