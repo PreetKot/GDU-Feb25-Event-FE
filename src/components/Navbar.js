@@ -1,7 +1,7 @@
 const Navbar = () => {
     return (
         <div>
-            <nav className="bg-[#232F3E] p-4">
+            <nav className="bg-darkSapphire p-4">
                 <div className="container mx-auto flex justify-between items-center">
                     <img src="" alt="logo" className="h-8" />{" "}
                     <ul className="flex space-x-4">
@@ -33,7 +33,7 @@ const Navbar = () => {
                     </ul>
                     <a
                         href="#"
-                        className="bg-yellow-500 text-blue-900 px-4 py-2 rounded hover:bg-yellow-600"
+                        className="bg-burntOrange text-darkSapphire px-4 py-2 rounded hover:bg-yellow-600"
                     >
                         About Us
                     </a>
