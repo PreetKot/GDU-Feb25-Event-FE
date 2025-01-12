@@ -43,32 +43,37 @@ const DnDCard = ({ card }) => {
         onMouseEnter={() => setShowReadMore(true)}
         onMouseLeave={() => setShowReadMore(false)}
       >
-        <div className="p-0 h-full relative">
-          {/* Image at the top, filling the card */}
-          <img
-            src={card.image || `https://via.placeholder.com/600x400?text=${encodeURIComponent(card.title)}`}
-            alt={card.title}
-            className="w-full h-full object-cover"
-          />
-
-          {/* Text content overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 p-4 text-white">
-            <h3 className="text-2xl font-medieval text-[#6C3B90]">{card.title}</h3>
-            <p className="text-amber-200/80">{card.description}</p>
+        <div className="p-0 h-full">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CiAgPHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0zMCAzMG0tMjggMGEyOCAyOCAwIDEgMCA1NiAwYTI4IDI4IDAgMSAwIC01NiAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==')]" />
           </div>
 
-          {/* Read More Button - Appears on Hover */}
-          <div
-            className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-stone-900 to-transparent p-6 transform transition-all duration-300 ${
-              showReadMore ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-            }`}
-          >
-            <button
-              onClick={() => setIsOpen(true)}
-              className="w-full py-2 px-4 bg-red-900 hover:bg-red-800 text-amber-400 rounded-md border border-amber-600 flex items-center justify-center gap-2 transition-colors duration-300"
+          {/* Card Content */}
+          <div className="relative p-6 flex flex-col h-full">
+            <h3 className="text-2xl font-medieval text-[#6C3B90]">{card.title}</h3>
+
+            <img
+              src={card.image || `https://via.placeholder.com/300x200?text=${encodeURIComponent(card.title)}`}
+              alt={card.title}
+              className="rounded-lg mb-4 object-cover"
+            />
+
+            <p className="text-amber-200/80 flex-grow">{card.description}</p>
+
+            {/* Read More Button */}
+            <div
+              className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-stone-900 to-transparent p-6 transform transition-all duration-300 ${
+                showReadMore ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+              }`}
             >
-              Read More
-            </button>
+              <button
+                onClick={() => setIsOpen(true)}
+                className="w-full py-2 px-4 bg-red-900 hover:bg-red-800 text-amber-400 rounded-md border border-amber-600 flex items-center justify-center gap-2 transition-colors duration-300"
+              >
+                Read More
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -124,3 +129,4 @@ const DnDCardGrid = () => {
 };
 
 export default DnDCardGrid;
+
