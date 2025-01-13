@@ -9,7 +9,7 @@ const cardData = [
     environment: "Volcanic",
     fullDescription:
       "Deep within the Forgotten Realms lies a legendary dragon's lair, rumored to hold treasures beyond mortal imagination. The ancient red dragon Infernothrax has made this volcanic cavern its home for millennia, amassing a hoard that would make kings weep with envy.",
-    image: '/dragon.png', // Replace with actual path to your dragon.png file
+    image: '/dragon.png',
   },
   {
     title: "Wizard's Tower",
@@ -37,39 +37,45 @@ const DnDCard = ({ card }) => {
 
   return (
     <>
-      {/* Card */}
+      {/* Card with bg.png base */}
       <div
-        className="relative w-full h-96 overflow-hidden transition-all duration-500 bg-gradient-to-br from-[#368BC1] to-[#142] hover:from-[#383838] hover:to-stone-800 border-2 border-amber-900 hover:border-amber-600 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-red-900/30 rounded-lg"
+        className="relative w-full h-96 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-red-900/30"
         onMouseEnter={() => setShowReadMore(true)}
         onMouseLeave={() => setShowReadMore(false)}
+        style={{
+          backgroundImage: "url('/back.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
       >
-        <div className="p-0 h-full">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CiAgPHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0zMCAzMG0tMjggMGEyOCAyOCAwIDEgMCA1NiAwYTI4IDI4IDAgMSAwIC01NiAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==')]" />
-          </div>
+        {/* Overlay for hover effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/0 to-black/20 hover:from-black/10 hover:to-black/30 transition-all duration-300">
+          {/* Content Container */}
+          <div className="relative h-full flex flex-col">
+            {/* Card Image */}
+            <div className="flex-grow overflow-hidden">
+              <img
+                src={card.image || `https://via.placeholder.com/600x400?text=${encodeURIComponent(card.title)}`}
+                alt={card.title}
+                className="w-full h-full object-cover opacity-90"
+              />
+            </div>
 
-          {/* Card Content */}
-          <div className="relative p-6 flex flex-col h-full">
-            <h3 className="text-2xl font-medieval text-[#6C3B90]">{card.title}</h3>
-
-            <img
-              src={card.image || `https://via.placeholder.com/300x200?text=${encodeURIComponent(card.title)}`}
-              alt={card.title}
-              className="rounded-lg mb-4 object-cover"
-            />
-
-            <p className="text-amber-200/80 flex-grow">{card.description}</p>
+            {/* Title and Description */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+              <h3 className="text-2xl font-medieval text-amber-400 mb-2">{card.title}</h3>
+              <p className="text-amber-200/90 text-sm">{card.description}</p>
+            </div>
 
             {/* Read More Button */}
             <div
-              className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-stone-900 to-transparent p-6 transform transition-all duration-300 ${
+              className={`absolute bottom-0 left-0 right-0 p-6 transform transition-all duration-300 ${
                 showReadMore ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
               }`}
             >
               <button
                 onClick={() => setIsOpen(true)}
-                className="w-full py-2 px-4 bg-red-900 hover:bg-red-800 text-amber-400 rounded-md border border-amber-600 flex items-center justify-center gap-2 transition-colors duration-300"
+                className="w-full py-2 px-4 bg-amber-900/80 hover:bg-amber-800 text-amber-200 rounded-md border border-amber-600/50 flex items-center justify-center gap-2 transition-colors duration-300 backdrop-blur-sm"
               >
                 Read More
               </button>
@@ -78,35 +84,66 @@ const DnDCard = ({ card }) => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal (kept the same as before) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-8"
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="w-full max-w-4xl bg-gradient-to-br from-stone-900 to-red-900 border-2 border-amber-600 text-amber-200 rounded-lg p-6 mx-4 overflow-auto flex flex-row gap-6"
+            className="w-full max-w-4xl bg-[#2a1810] rounded-lg p-8 mx-4 overflow-auto flex flex-row gap-8 relative"
             onClick={(e) => e.stopPropagation()}
+            style={{
+              backgroundImage: `url('/back.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              boxShadow: `
+                0 0 0 2px #8b4513,
+                0 0 0 4px #654321,
+                0 0 25px rgba(139, 69, 19, 0.6),
+                inset 0 0 100px rgba(0, 0, 0, 0.8)
+              `
+            }}
           >
-            {/* Modal Left Side: Image */}
-            <div className="w-1/3">
-              <img
-                src={card.image || `https://via.placeholder.com/600x300?text=${encodeURIComponent(card.title)}`}
-                alt={`${card.title} Expanded`}
-                className="rounded-lg w-full object-cover mb-6 border border-amber-600/50"
-              />
-            </div>
+            {/* Modal content remains the same */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+            
+            <div className="relative z-10 flex flex-row gap-8 w-full">
+              {/* Left Side: Image */}
+              <div className="w-1/3">
+                <img
+                  src={card.image || `https://via.placeholder.com/600x300?text=${encodeURIComponent(card.title)}`}
+                  alt={`${card.title} Expanded`}
+                  className="rounded-lg w-full object-cover border-4 border-amber-900/80 shadow-lg shadow-amber-900/40"
+                />
+              </div>
 
-            {/* Modal Right Side: Content */}
-            <div className="w-2/3 flex flex-col">
-              <h2 className="text-3xl font-medieval text-amber-400 mb-4">{card.title}</h2>
-              <p className="text-lg leading-relaxed">{card.fullDescription}</p>
-
-              <div className="mt-6 p-4 bg-stone-900/50 rounded-lg border border-amber-600/30">
-                <h4 className="text-xl text-amber-400 mb-2">Dungeon Master's Notes</h4>
-                <p className="text-amber-200/80">
-                  Challenge Rating: {card.challengeRating} | Environment: {card.environment} | Treasure Hoard: Legendary
+              {/* Right Side: Content */}
+              <div className="w-2/3 flex flex-col">
+                <h2 className="text-4xl font-medieval text-amber-400 mb-6">
+                  {card.title}
+                </h2>
+                
+                <p className="text-lg leading-relaxed text-amber-200/90 mb-6">
+                  {card.fullDescription}
                 </p>
+
+                <div className="mt-6 p-6 bg-black/40 rounded-lg border-2 border-amber-900/50">
+                  <h4 className="text-2xl text-amber-400 mb-4">
+                    Dungeon Master's Notes
+                  </h4>
+                  <div className="space-y-2 text-amber-200/90">
+                    <p className="flex items-center gap-2">
+                      <span className="text-amber-400">Challenge Rating:</span> {card.challengeRating}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="text-amber-400">Environment:</span> {card.environment}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="text-amber-400">Treasure Hoard:</span> Legendary
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -129,4 +166,3 @@ const DnDCardGrid = () => {
 };
 
 export default DnDCardGrid;
-
