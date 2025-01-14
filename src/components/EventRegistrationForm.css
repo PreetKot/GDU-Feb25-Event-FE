@@ -1,0 +1,140 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Cinzel', serif;
+    background: url("C:\Users\rajde\Downloads\GDU\Dragon\dragondungeon\src\dragon dungeon.webp") no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Form Page Styles */
+.form-page {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Form Container Styles */
+.form-container {
+    position: relative;
+    background: url("C:\Users\rajde\Downloads\GDU\Dragon\dragondungeon\src\dragon dungeon.webp") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: 50px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    border: 2px solid #6b2b06;
+}
+
+/* Dark Overlay for Form Background */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent black */
+    border-radius: 15px;
+    z-index: 1;
+}
+
+/* Form Content (Content above the overlay) */
+.form-content {
+    position: relative;
+    z-index: 2; /* Ensure the form content sits above the overlay */
+}
+
+/* Form Title */
+.form-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px #000;
+    z-index: 3; /* Ensure it's on top of overlay */
+    color: #ffd700; /* Golden color for the title */
+}
+
+/* Form Labels */
+.form-label {
+    text-align: left;
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    z-index: 3; /* Ensure it's on top of overlay */
+}
+
+/* Input, Select, and Textarea Styles */
+.form-input, .form-select, .form-textarea {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #6b2b06;
+    border-radius: 5px;
+    background: #3b1e1e;
+    color: #fff;
+    z-index: 3; /* Ensure it's on top of overlay */
+}
+
+/* Placeholder Styling */
+.form-input::placeholder, .form-textarea::placeholder {
+    color: #c4a484;
+}
+
+/* Button Styles */
+.form-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #6b2b06;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 3; /* Ensure it's on top of overlay */
+}
+
+.form-button:hover {
+    background: #8b3e1f;
+}
+
+/* Fire Animation at the Bottom */
+.fire-animation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 150px;
+    background: url("https://media.giphy.com/media/3o6Zt3t9ISrc6Lg4T2/giphy.gif") no-repeat center bottom;
+
+    animation: fire-flicker 1.5s infinite;
+    z-index: 0;
+}
+
+
+@keyframes fire-flicker {
+    0% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+/* Optional: Add some margin/padding to improve form content spacing */
+.form-input, .form-select, .form-textarea, .form-button {
+    margin-bottom: 20px;
+}
