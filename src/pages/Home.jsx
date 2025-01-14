@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import DnDCardGrid from "../components/Events/Event";
+import DnDCardGrid from "../components/events/event";
 import Faq from "../components/FAQ/Faq";
 
 const Home = () => {
