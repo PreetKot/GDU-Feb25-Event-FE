@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import DnDCardGrid from "../components/Events/Event";
+import Faq from "../components/FAQ/Faq";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const Home = () => {
 
         {/*Events */}
         <DnDCardGrid />
+
+        <Faq />
       </div>
     </>
   );
