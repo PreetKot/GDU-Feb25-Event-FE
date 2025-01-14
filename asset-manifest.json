@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/GDU-Feb25-Event-FE/static/css/main.8307d618.css",
+    "main.js": "/GDU-Feb25-Event-FE/static/js/main.944854d2.js",
+    "static/js/453.8ab44547.chunk.js": "/GDU-Feb25-Event-FE/static/js/453.8ab44547.chunk.js",
+    "index.html": "/GDU-Feb25-Event-FE/index.html",
+    "main.8307d618.css.map": "/GDU-Feb25-Event-FE/static/css/main.8307d618.css.map",
+    "main.944854d2.js.map": "/GDU-Feb25-Event-FE/static/js/main.944854d2.js.map",
+    "453.8ab44547.chunk.js.map": "/GDU-Feb25-Event-FE/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8307d618.css",
+    "static/js/main.944854d2.js"
+  ]
+}
