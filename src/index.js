@@ -8,11 +8,13 @@ import PageNotFound from './pages/PageNotFound';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import Intro from './pages/Intro';
+import EventRegistrationForm from './components/RegistrationForm/EventRegistrationForm';
 
 const router = new Router(
   createRoutesFromElements(
     <Route path='/' exact element={<Layout />}>
       <Route index element={<Home />} />
+      <Route path="/register" element={ <EventRegistrationForm/>} />
       <Route path="/Intro" element={<Intro />} />
       <Route path="/*" element={<PageNotFound />} />
     </Route>
