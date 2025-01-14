@@ -3,10 +3,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Cinzel', serif;
-    background: url("C:\Users\rajde\Downloads\GDU\Dragon\dragondungeon\src\dragon dungeon.webp") no-repeat center center fixed;
     background-size: cover;
     color: #fff;
-    overflow: hidden;
 }
 
 /* Form Page Styles */
@@ -23,7 +21,6 @@ body {
 /* Form Container Styles */
 .form-container {
     position: relative;
-    background: url("C:\Users\rajde\Downloads\GDU\Dragon\dragondungeon\src\dragon dungeon.webp") no-repeat center center;
     background-size: cover;
     padding: 20px;
     border-radius: 15px;

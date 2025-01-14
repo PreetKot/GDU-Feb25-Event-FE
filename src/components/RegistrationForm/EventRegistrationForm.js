@@ -29,7 +29,7 @@ const EventRegistrationForm = () => {
     };
 
     return (
-        <div className="form-page">
+        <div className="form-page bg-red-500 pt-16" style={{backgroundImage: `url(/images/dragondungeon.webp)`}} >
             {/* Form Container */}
             <div className="form-container">
                 {/* Dark Overlay for Form Background */}

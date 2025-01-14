@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const cardData = [
   {
@@ -145,8 +146,19 @@ const DnDCard = ({ card }) => {
                   </div>
                 </div>
               </div>
+
+
             </div>
+
+            
           </div>
+
+          <div>
+              <Link to='/register'>
+              <button className='bg-goldenrod'>Register</button>
+              </Link>
+            </div>
+            
         </div>
       )}
     </>
