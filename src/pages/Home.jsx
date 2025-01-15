@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+
 import SponsorCard from "../components/SponsorCard";
 import "../index.css";
 import DnDCardGrid from "../components/events/Event";
+
 import Faq from "../components/FAQ/Faq";
 
 const Home = () => {
