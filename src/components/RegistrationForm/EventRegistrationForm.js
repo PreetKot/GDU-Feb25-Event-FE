@@ -27,6 +27,7 @@ const EventRegistrationForm = () => {
         });
     };
 
+
     return (<div
         className="relative h-screen w-full flex flex-col items-center justify-center bg-cover bg-center pt-16 px-4 sm:px-8 md:px-16"
         style={{ backgroundImage: `url('/images/dragondungeon.webp')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
@@ -99,6 +100,7 @@ const EventRegistrationForm = () => {
               <button type="submit" className="w-full px-4 py-2 bg-yellow-400 text-black font-bold rounded-md hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">Embark on Quest</button>
             </form>
           </div>
+
         </div>
       </div>
       
