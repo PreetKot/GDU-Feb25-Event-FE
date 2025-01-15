@@ -164,7 +164,7 @@ const DnDCard = ({ card }) => {
   );
 };
 
-const DnDCardGrid = () => {
+const Event = () => {
   return (
     <div className="p-8 bg-stone-950 min-h-screen">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -176,4 +176,4 @@ const DnDCardGrid = () => {
   );
 };
 
-export default DnDCardGrid;
+export default Event;
