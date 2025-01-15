@@ -17,14 +17,14 @@
 
 @font-face {
   font-family: 'HarryP';
-  src: url('./assets/fonts/HarryP.ttf') format('truetype');
+  src: url('./components/LoginPage_Preet/assets/HARRYP__.TTF') format('truetype');
 }
 /*Login_Form_css_elements */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   margin: 0;
-  background-image: url('./assets/background_img2.jpg');
+  background-image: url('./components/LoginPage_Preet/assets/d&dbackground.jpg');
   background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
