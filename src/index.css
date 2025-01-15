@@ -12,6 +12,28 @@
   font-family: "Amz";
   src: url("/AmazonEmberDisplay_Bd.ttf") format("truetype");
 } */
+
+
+
+@font-face {
+  font-family: 'HarryP';
+  src: url('./assets/fonts/HarryP.ttf') format('truetype');
+}
+/*Login_Form_css_elements */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  margin: 0;
+  background-image: url('./assets/background_img2.jpg');
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 ::-webkit-scrollbar {
   width: 0px;
 }
